@@ -18,3 +18,13 @@ def generator():
     yield '1'
     yield 'string'
     yield 'True'
+
+
+g1 = get_natural_number()
+g2 = generator()
+for _ in range(100):
+    print(next(g1), end=' ')
+
+print()
+for _ in range(3):
+    print(next(g2))

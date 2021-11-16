@@ -15,3 +15,7 @@ def type_hint(b):
 def type_hint(b: int) -> str:
     a: int = b
     return str(a)
+
+
+value = type_hint(3)
+print(value)
