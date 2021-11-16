@@ -36,3 +36,15 @@ list_a = []
 dict_a = {}
 list_comprehension(list_a)
 list_comprehension(dict_a)
+
+# 여러 표현식을 여러 줄에 걸쳐 표현하면 가독성이 지나치게 떨어진다.
+
+test = [(x, y, z)
+        for x in range(5)
+        for y in range(5)
+        if x != y
+        for z in range(5)
+        if y != z
+        ]
+
+print(test)
