@@ -12,18 +12,72 @@
 출력
 첫째 줄에 지민이가 다시 칠해야 하는 정사각형 개수의 최솟값을 출력한다.
 """
+
+# 비교할 기준 설정
+BW = [0 for _ in range(8)]
+WB = [0 for _ in range(8)]
+result = 12345
+
+for i in range(8):
+    if i % 2 == 0:
+        BW[i] = list(map(str, "BWBWBWBW"))
+        WB[i] = "W B W B W B W B".split()
+    else:
+        BW[i] = "W B W B W B W B".split()
+        WB[i] = "B W B W B W B W".split()
+
+
+# 행과 열이 시작되는 값을 파라미터로 받아서 count값을 int형으로 반환
+def BW_cnt(x, y: int) -> int:
+    cnt = 0
+
+    for i in range(8):
+        for j in range(8):
+            if chess_board[x + i][y + j] != BW[i][j]:
+                cnt += 1
+
+    return cnt
+
+def WB_cnt(x, y: int) -> int:
+    cnt = 0
+
+    for i in range(8):
+        for j in range(8):
+            if chess_board[x + i][y + j] != WB[i][j]:
+                cnt += 1
+
+    return cnt
+
 # N = 가로, M = 세로, B = black, W = white
 N, M = map(int, input("행 열 입력> ").split())
+# if N < 8 or M < 8:
+#     N, M = map(int, input("다시 입력해주세요, 행 열 입력(8 8이상)> ").split())
 
 # 행을 만들만큼의 1차원 리스트를 만들고, range(N)만큼 만들어진 리스트에 0부터 N-1까지 열값을 넣으면 2차원 배열을 만들 수 있다.
 chess_board = [0 for _ in range(N)]
+
 for i in range(N):
     # 한줄의 입력값이 행길이와 같은지 확인
     check_M = input()
     if len(check_M) != M:
-        print("에러")
+        while True:
+            check_M = input(f"{M}글자르 다시 입력해주세요> ")
+            chess_board[i] = list(map(str, check_M))
+            if len(check_M) == M:
+                break
+
+    else:
+        chess_board[i] = list(map(str, check_M))
+
+for i in range(i + 8):
+    if i > N:
         break
+    for j in range(j + 8):
+        if j > M:
+            break
+        tmp = min(WB_cnt(i, j), BW_cnt(i, j))
 
-    chess_board[i] = list(map(str, input()))
+        if tmp < result:
+            result = tmp
 
-print(chess_board)
+print(result)
