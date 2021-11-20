@@ -13,6 +13,13 @@
 첫째 줄에 지민이가 다시 칠해야 하는 정사각형 개수의 최솟값을 출력한다.
 """
 
+
+def test_check():
+    print('test')
+    exit
+
+
+
 # 비교할 기준 설정
 BW = [0 for _ in range(8)]
 WB = [0 for _ in range(8)]
