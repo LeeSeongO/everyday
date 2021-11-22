@@ -15,6 +15,7 @@ opPre = 0
 def test_check():
     print('test')
 
+
 def number_click(value):
     # print('숫자 ', value)
     global disValue
