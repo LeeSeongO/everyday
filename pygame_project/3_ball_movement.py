@@ -48,9 +48,30 @@ weapon_width = weapon_size[0]
 # 무기는 한 번에 여러 발 발사 가능
 weapons = []
 
-# 무기 발사 속도
+# 무기 발사 개체 속도
 weapon_speed = 10
 
+# 공 만들기 (4개 크기에 대해 따로 처리)
+ball_images = [
+    pygame.image.load(os.path.join(image_path, "balloon1.png")),
+    pygame.image.load(os.path.join(image_path, "balloon2.png")),
+    pygame.image.load(os.path.join(image_path, "balloon3.png")),
+    pygame.image.load(os.path.join(image_path, "balloon4.png"))]
+
+# 공 크기에 따른 최초 스피드
+ball_speed_y = [-18, -15, -12, -9]  # index 0, 1, 2, 3 에 해당하는 값
+
+# 공들
+balls = []
+
+# 최초 발생하는 큰 공 추가
+balls.append({
+    "pos_x": 50,  # 공의 x 좌표
+    "pos_y": 50,   # 공의 y 좌표
+    "img_idx": 0,  # 공의 이미지 인데스
+    "to_x": 3,  # x축 이동방향, -3이면 왼쪽르로, 3이면 오른쪽으로
+    "to_y": -6,  # y축 이동방향
+    "init_spd_y": ball_speed_y[0]})  # y 최초 속도
 
 running = True
 while running:
@@ -90,8 +111,12 @@ while running:
     elif character_x_pos > screen_width - character_width:
         character_x_pos = screen_width - character_width
 
-    # 무기 위치 조정
+    # 무기 위치 조정, if 문으로 공이 천장에 닿았을때 무기 없애는 것을 구현 할 수 있다.
     weapons = [[w[0], w[1] - weapon_speed] for w in weapons if (w[1] - weapon_speed) > 0]
+
+    # 공 위치 정의
+    for ball_idx, ball_val in enumerate(balls):
+        pass
 
     # 4. 충돌 처리
 
