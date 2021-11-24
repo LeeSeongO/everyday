@@ -14,16 +14,24 @@
 """
 
 
-def test_check():
-    print('test')
-    exit
+# BW, WB로 시작하는 패턴의 값을 비교하는 함수
+def BW_WB_min_cnt(row, column: int) -> int:
+    bw_cnt = 0
+    wb_cnt = 0
+    for i in range(8):
+        for j in range(8):
+            if value[row + i][column + j] != BW[i][j]:
+                bw_cnt += 1
+            if value[row + i][column + j] != WB[i][j]:
+                wb_cnt += 1
+    return min(bw_cnt, wb_cnt)
 
+# 최솟값결과를 저장하는 변수
+answer = 12345
 
-
-# 비교할 기준 설정
+# 비교할 정답 만들기 BW로 시작하는 정답, WB로 시작하는 정답
 BW = [0 for _ in range(8)]
 WB = [0 for _ in range(8)]
-result = 12345
 
 for i in range(8):
     if i % 2 == 0:
@@ -33,58 +41,28 @@ for i in range(8):
         BW[i] = "W B W B W B W B".split()
         WB[i] = "B W B W B W B W".split()
 
+# N = 행, M = 열
+# while True:
+#     N, M = map(int, input().split())
+#     if not (8 <= N <= 50 and 8 <= M <= 50):
+#         N, M = map(int, input("N과 M값은 8보다 크거나 같고, 50보다 작거나 같은 자연수를 입력해주세요> ").split())
+#         print(N, M)
+#         break
 
-# 행과 열이 시작되는 값을 파라미터로 받아서 count값을 int형으로 반환
-def BW_cnt(x, y: int) -> int:
-    cnt = 0
+N, M = map(int, input().split())
 
-    for i in range(8):
-        for j in range(8):
-            if chess_board[x + i][y + j] != BW[i][j]:
-                cnt += 1
+# 사용자에게 입력을 받을 value 을 리스트형태로 선언
+value = []
 
-    return cnt
+for _ in range(N):
+    value.append(list(map(str, input())))
 
-def WB_cnt(x, y: int) -> int:
-    cnt = 0
+# 8 * 8로 분리하기 위해서 -8을 해주고 8 * 8 일때 최소 한번은 체크해야되기때문에 + 1 해준다
+for i in range(N - 8 + 1):
+    for j in range(M - 8 + 1):
+        tmp = BW_WB_min_cnt(i, j)
+        if answer > tmp:
+            answer = tmp
 
-    for i in range(8):
-        for j in range(8):
-            if chess_board[x + i][y + j] != WB[i][j]:
-                cnt += 1
 
-    return cnt
-
-# N = 가로, M = 세로, B = black, W = white
-N, M = map(int, input("행 열 입력> ").split())
-# if N < 8 or M < 8:
-#     N, M = map(int, input("다시 입력해주세요, 행 열 입력(8 8이상)> ").split())
-
-# 행을 만들만큼의 1차원 리스트를 만들고, range(N)만큼 만들어진 리스트에 0부터 N-1까지 열값을 넣으면 2차원 배열을 만들 수 있다.
-chess_board = [0 for _ in range(N)]
-
-for i in range(N):
-    # 한줄의 입력값이 행길이와 같은지 확인
-    check_M = input()
-    if len(check_M) != M:
-        while True:
-            check_M = input(f"{M}글자르 다시 입력해주세요> ")
-            chess_board[i] = list(map(str, check_M))
-            if len(check_M) == M:
-                break
-
-    else:
-        chess_board[i] = list(map(str, check_M))
-
-for i in range(i + 8):
-    if i > N:
-        break
-    for j in range(j + 8):
-        if j > M:
-            break
-        tmp = min(WB_cnt(i, j), BW_cnt(i, j))
-
-        if tmp < result:
-            result = tmp
-
-print(result)
+print(answer)
