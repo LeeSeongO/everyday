@@ -1,8 +1,8 @@
-a = [1, 3, 5, 4]
+from algorithm import palindrome
 
-item = a.pop(3)
+str = 'aab baa'
 
-item2 = a.remove(1)  #반환하지 않음
-
-print(item)
-print(item2)
+pal = palindrome.Palindrome()
+print(pal.isPalindrome(str))
+print(pal.isPalindrome2(str))
+print(pal.isPalindrome3(str))
