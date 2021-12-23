@@ -1,8 +1,8 @@
-from algorithm import palindrome
+input = [802, 743, 457, 539]
 
-str = 'aab baa'
+end = ()
 
-pal = palindrome.Palindrome()
-print(pal.isPalindrome(str))
-print(pal.isPalindrome2(str))
-print(pal.isPalindrome3(str))
+for i in input:
+    end += i;
+
+print(end)
