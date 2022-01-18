@@ -4,6 +4,7 @@
 # 2. 신고당한 유저의 인덱스에 count 값과, 신고한 유저 목록을 저장하는 리스트
 # 혹시 중복된 값이 존재할 수 있으므로 중복된 값을 처리 함.
 # 3. 2번의 count 값이 k 와 비교해서 크거나 같을때 신고한 유저 목록들의 answer 값을 1씩 증가 시키기.
+
 def solution(id_list, report, k):
     answer = [0 for _ in range(len(id_list))]
     count_report_list = [[0, ''] for _ in range(len(id_list))]
