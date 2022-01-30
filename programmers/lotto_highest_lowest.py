@@ -7,8 +7,9 @@ def solution(lottos, win_nums):
     ans = 0
 
     for x in win_nums:
-    if x in lottos:
-        ans += 1
+        if x in lottos:
+            ans += 1
+
     return rank[cnt_0 + ans], rank[ans]
 
 느낀점:
@@ -20,8 +21,15 @@ def solution(lottos, win_nums):
 그리고 확장성부분 이 문제의 경우 확장된다는 언급은 없었지만 만약에 정답 길이가 늘어나게되면 순위도 변경될 가능성을 생각해보았다.
 """
 
-def check_six(lt, rk_mn):
-    if lt < rk_mn:
+"""
+    문제의 규칙 
+    1. 0의 최고 순위의 영향을 미친다.
+    2. 
+
+"""
+
+def check_rank(lt, rk):
+    if lt < rk:
         lt += 1
     return lt
 
@@ -30,7 +38,7 @@ def solution(lottos: list, win_nums: list) -> list:
     answer = []
     joker_count = 0
     lotto_matched_count = 0
-    rank_min = len(win_nums)
+    rank = len(win_nums)
 
     for num in lottos:
         if num == 0:
@@ -40,19 +48,20 @@ def solution(lottos: list, win_nums: list) -> list:
         if num in win_nums:
             lotto_matched_count += 1
 
-    check = check_six(rank_min - (lotto_matched_count + joker_count), rank_min)
+    # 예외 처리 하는 부분
+    check = check_rank(rank - (lotto_matched_count + joker_count), rank)
     answer.append(check)
 
-    check = check_six(rank_min - lotto_matched_count, rank_min)
+    check = check_rank(rank - lotto_matched_count, rank)
     answer.append(check)
 
     return answer
 
 
-lotto_list = [[20, 2, 5, 6, 7, 8, 39], [44, 1, 0, 0, 31, 25], [0, 0, 0, 0, 0, 0]]
-win_num_list = [[20, 9, 3, 45, 4, 35, 1], [31, 10, 45, 1, 6, 19], [38, 19, 20, 40, 15, 25]]
+lotto_list = [[20, 2, 5, 6, 7, 8, 39], [44, 1, 0, 0, 31, 25], [0, 0, 0, 0, 0, 0], [20, 2, 5, 45, 7, 8, 39]]
+win_num_list = [[20, 9, 3, 45, 4, 35, 1], [31, 10, 45, 1, 6, 19], [38, 19, 20, 40, 15, 25], [20, 9, 3, 45, 4, 35, 1]]
 
-print(solution(lotto_list[0], win_num_list[0]))
+print(solution(lotto_list[3], win_num_list[3]))
 
 # [44, 1, 0, 0, 31, 25]	[31, 10, 45, 1, 6, 19]	[3, 5]
 # [0, 0, 0, 0, 0, 0]	[38, 19, 20, 40, 15, 25]	[1, 6]

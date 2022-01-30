@@ -17,9 +17,7 @@ import collections, re
 from typing import Deque
 
 
-
 # 리스트로 변환한 풀이.
-
 
 
 class Palindrome:
@@ -36,7 +34,6 @@ class Palindrome:
 
         return True
 
-
     def isPalindrome2(self, s: str) -> bool:
         # 자료형 데크로 선언
         strs: Deque = collections.deque()
@@ -51,7 +48,6 @@ class Palindrome:
 
         return True
 
-
     def isPalindrome3(self, s: str) -> bool:
         s = s.lower()
         # 정규식으로 불필요한 문자 필터링
@@ -61,3 +57,7 @@ class Palindrome:
         s = re.sub('[^a-z0-9]', '', s)
 
         return s == s[::-1]  # 슬라이싱
+
+
+test_list = []
+
