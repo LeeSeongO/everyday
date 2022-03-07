@@ -17,3 +17,4 @@ def solution(participant_array, completion_array):
 
 
 print(solution(participant[0], completion[0]))
+
