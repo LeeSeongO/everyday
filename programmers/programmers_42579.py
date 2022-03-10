@@ -35,5 +35,30 @@
 
 def solution(genres, plays):
     answer = []
+    genres_total_play = {}
+    genres_index_play = {}
+
+    for i in range(len(genres)):
+        # 장르별 총 플레이 횟수
+        if genres[i] not in genres_total_play:
+            genres_total_play[genres[i]] = plays[i]
+            genres_index_play[genres[i]] = [[i, plays[i]]]
+        else:
+            genres_total_play[genres[i]] += plays[i]
+            genres_index_play[genres[i]].append([i, plays[i]])
+
+    # 장르별 내림차순으로 정렬
+    genres_total_play_sort = sorted(genres_total_play.items(), key=lambda x: x[1], reverse=True)
+
+    for key, value in genres_total_play_sort:
+        genres_index_play_sort = sorted(genres_index_play[key], key=lambda x: x[1], reverse=True)
+
+        # 장르별 play 2개만 추출
+        for i in range(len(genres_index_play_sort)):
+            if i > 1:
+                break
+
+            answer.append(genres_index_play_sort[i][0])
+
     return answer
 
