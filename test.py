@@ -1,13 +1,15 @@
 import collections
 
+a = collections.defaultdict(int)
 
-def solution(participant, completion):
-    answer = dict(collections.Counter(participant)) - dict(collections.Counter(completion))
-    return list(answer.keys())[0]
+a['A'] = 5
+a['B'] = 4
 
-participant_list = ["mislav", "stanko", "mislav", "ana"]
-completion_list = ["stanko", "ana", "mislav"]
+b = {
+    'B': 5,
+    'A': 4
+}
 
-temp = solution(participant_list, completion_list)
-
-print(type(temp))
+print(a['C'])
+print(a)
+print(b)
