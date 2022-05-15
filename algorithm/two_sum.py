@@ -46,10 +46,41 @@ class TwoSum:
             if target - num in nums_map and i != nums_map[target - num]:
                 return [i, nums_map[target - num]]
 
+    # twoSumKey 를 반복문 하나에서 코드를 조금 더 간결하게 처리하는 방식
+    # target - num 한 값을 nums_map 에 찾아서 없으면 nums_map[num] 에 값을 입력, 있다면 출력
+    def twoSumKey2(self, nums: List[int], target: int) -> List[int]:
+        nums_map = {}
+
+        for i, num in enumerate(nums):
+            if target - num in nums_map:
+                return [nums_map[target - num], i]
+            nums_map[num] = i
+
+    # 투 포인터 방식
+    # 이 방식을 사용할때 주의 할 점은 List 안에 있는 숫자들이 오름차순으로 정렬이 되어있어야 한다.
+    def twoSumTP(self, nums: List[int], target: int) -> List[int]:
+        # 양쪽 끝을 포인터로 생성
+        left, right = 0, len(nums) - 1
+
+        # 왼쪽 포인터와 오른쪽 포인터가 같은 위치에 있으면 종료
+        while not left == right:
+            # 합이 타겟보다 작으면 왼쪽 포인터를 오른쪽으로
+            if nums[left] + nums[right] < target:
+                left += 1
+            # 합이 타겟보다 크면 오른쪽 포인터를 왼쪽으로
+            elif nums[left] + nums[right] > target:
+                right -= 1
+
+            else:
+                return [left, right]
+
+
+
+
 
 
 nums = [2, 7, 11, 15]
 target = 9
 
 TwoSum = TwoSum()
-TwoSum.twoSumKey(nums, target)
+print(TwoSum.twoSumKey2(nums, target))
