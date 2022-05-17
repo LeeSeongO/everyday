@@ -10,6 +10,7 @@ class LinkedTuple:
             if key == k:
                 return v
 
+
 class LinkedDict:
     def __init__(self):
         self.items = []
@@ -23,7 +24,4 @@ class LinkedDict:
 
     def get(self, key):
         index = hash(key) % len(self.items)
-
-        #LinkedTuple
-        #[(key1, value1), (key, value)]
         return self.items[index].get(key)
