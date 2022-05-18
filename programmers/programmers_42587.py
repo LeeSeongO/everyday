@@ -32,7 +32,6 @@ def solution(priorities: List[int], location: int) -> int:
     wating_print = deque([index, priority] for index, priority in enumerate(priorities))
 
     while wating_print:
-
         # 시간복잡도 popleft() = O(1), pop(0) = O(n)
         current_print = wating_print.popleft()
 
