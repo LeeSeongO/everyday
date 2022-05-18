@@ -21,8 +21,34 @@ priorities	location	return
 [1, 1, 9, 1, 1, 1]	0	5
 
 """
+from collections import deque
+from typing import List
 
 
-def solution(priorities, location):
+def solution(priorities: List[int], location: int) -> int:
     answer = 0
+
+    # 순서가 섞인 인덱스 값을 비교해야 하므로 enumerate 해서 deque 에 넣어준다.
+    wating_print = deque([index, priority] for index, priority in enumerate(priorities))
+
+    while wating_print:
+
+        # 시간복잡도 popleft() = O(1), pop(0) = O(n)
+        current_print = wating_print.popleft()
+
+        # 조건 1. popleft 를 했을경우 wating_print 가 비어있을 수 있다
+        # 조건 2. 현재 프린트하려고 가지고있는 값이, wating_print 값중에 제일 큰지 확인을 한다.
+        if wating_print and current_print[1] < max(wating_print, key=lambda x: x[1])[1]:
+            wating_print.append(current_print)
+        else:
+            answer += 1
+            if current_print[0] == location:
+                break
+
     return answer
+
+
+priorities = [1, 1, 9, 1, 1, 1]
+location = 0
+
+print(solution(priorities, location))
