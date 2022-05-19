@@ -30,7 +30,42 @@ bridge_length	weight	truck_weights	return
 
 """
 
+from typing import List
+from collections import deque
 
-def solution(bridge_length, weight, truck_weights):
+
+def solution(bridge_length: int, weight: int, truck_weights: List[int]) -> int:
     answer = 0
+    truck_weights_deque = deque(truck_weights)
+    
+    # 현재 다리위의 무게 큐
+    current_bridge_weight_deque = deque([0] * bridge_length)
+
+    # 현재 다리위의 무게
+    current_bridge_weight = 0
+
+    while len(current_bridge_weight_deque):
+        answer += 1
+        # 1초가 지났기 때문에 현재 다리 위의 무게에서 popleft 한값을 minus 처리
+        current_bridge_weight -= current_bridge_weight_deque.popleft()
+
+        # 대기 중인 트럭 큐가 비어있는지 확인
+        if truck_weights_deque:
+            # 다리위의 무게 + 다음 대기중인 트럭 1대의 값을 더해서 최대 무게랑 비교
+            # True 면 대기중인 트럭 1대 append 하고, 현재 다리 위의 무게도 증가시켜준다.
+            # False 무게 0을 append 해준다.
+            # current_bridge_weight를 sum함수로 처리하려고했는데 시간복잡도 오류로 아래와 같이 처리
+            if current_bridge_weight + truck_weights_deque[0] <= weight:
+                current_bridge_weight_deque.append(truck_weights_deque.popleft())
+                current_bridge_weight += current_bridge_weight_deque[-1]
+            else:
+                current_bridge_weight_deque.append(0)
+
     return answer
+
+
+bridge_length = 2
+weight = 10
+truck_weights = [7,4,5,6]
+
+print(solution(bridge_length, weight, truck_weights))
